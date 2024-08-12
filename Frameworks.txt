@@ -9,3 +9,10 @@ Bootstrap: É um framework voltado para o front-end, que é a parte do site que 
 
 3.	Critérios de Escolha
 Para escolher um framework a se usar, é necessário entender os requisitos que seu projeto visa alcançar... (TERMINAR DEPOIS)
+
+https://www.alura.com.br/artigos/framework-o-que-e-pra-que-serve-essa-ferramenta
+https://www.alura.com.br/artigos/angular-js#o-que-e-angular?
+https://programathor.com/blog/framework_ideal_para_o_seu_projeto/
+https://www.alura.com.br/artigos/bootstrap#bootstrap:-o-que-e?
+https://tecnoblog.net/responde/o-que-sao-frameworks/
+https://www.alura.com.br/artigos/framework-o-que-e-pra-que-serve-essa-ferramenta
