@@ -1,0 +1,79 @@
+.square {
+    width: 500px;
+    height: 500px;
+}
+
+.texto
+{
+    font-size: 24px;
+}
+
+@media screen and (max-width: 420px) {
+    .square{
+        background-color: rgb(30, 85, 85);
+    }
+
+    .texto::before{
+        content:"420px";
+    }
+}
+
+@media screen and (min-width: 421px) {
+    .square{
+        background-color: rgb(236, 94, 23);
+    }
+    
+    .texto:before{
+        content:"768px";
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .square {
+        background-color: rgb(255, 0, 187);
+    }
+
+    .texto:before{
+        content:"1024px";
+    }
+}
+
+@media screen and (min-width: 1025px) {
+    .square {
+        background-color: rgb(230, 39, 39);
+    }
+
+    .texto:before{
+        content:"1080px";
+    }
+}
+
+@media screen and (min-width: 1081px) {
+    .square {
+        background-color: rgb(102, 30, 161);
+    }
+
+    .texto:before{
+        content:"1366px";
+    }
+}
+
+@media screen and (min-width: 1367px) {
+    .square {
+        background-color: rgb(219, 255, 12);
+    }
+
+    .texto:before{
+        content:"1920px";
+    }
+}
+
+@media screen and (min-width: 1921px) {
+    .square {
+        background-color: rgb(62, 196, 29);
+    }
+
+    .texto:before{
+        content:"Acima de 1920px";
+    }
+}
