@@ -93,7 +93,7 @@ body
     outline: black solid 2px;
 }
 
-.quadrado
+.quadrado-adicionar
 {
     background-color: rgb(255, 255, 255);
     position: absolute;
@@ -108,14 +108,16 @@ body
     justify-content: center;
 }
 
-.quadrado img
+.quadrado-adicionar img
 {
     width: 40%;
 }
 
-.quadrado:hover
+.quadrado-adicionar:hover
 {
     background-color: rgb(162, 162, 162);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); /* Intensifica a sombra */
+    cursor: pointer;
 }
 
 .lista-cartoes
@@ -128,7 +130,7 @@ body
 
 .cartao
 {
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     display: flex;
     flex-direction: column;
     width: 90%;
@@ -160,11 +162,6 @@ body
     font-weight: bold;
 }
 
-.prioridade-conteudo[value="ALTA"]
-{
-    outline: blue solid 3px;
-}
-
 .nome
 {
     font-weight: bold;
@@ -178,7 +175,7 @@ body
     align-items: center;
 }
 
-.popup {
+.popup-adicionar {
     display: none;
     position: fixed;
     top: 0;
@@ -190,7 +187,7 @@ body
     align-items: center;
 }
 
-.popup-content {
+.popup-conteudo {
     background-color: #37474f;
     color: white;
     padding: 24px;
@@ -200,17 +197,17 @@ body
     text-align: center;
 }
 
-.popup-content h3
+.popup-conteudo h3
 {
     font-size: 24px;
 }
 
-.popup-content label {
+.popup-conteudo label {
     display: block;
     margin-top: 10px;
 }
 
-.popup-content input {
+.popup-conteudo input {
     width: 100%;
     padding: 5px;
     margin-top: 5px;
@@ -219,7 +216,7 @@ body
     outline: none;
 }
 
-.popup-content button {
+.popup-conteudo button {
     margin-top: 15px;
     padding: 8px 12px;
     border: none;
@@ -227,28 +224,28 @@ body
     cursor: pointer;
 }
 
-.addTaskButton, .editTaskButton {
+.adicionarTarefa, .editarTarefa {
     background-color: #4caf50;
     color: white;
     width: auto;
 }
 
-.closeButton, .closeEditButton {
+.fecharPopup, .fecharVisualizarPopup {
     background-color: #f44336;
     color: white;
     margin-left: 20px;
     width: auto;
 }
 
-.deleteTaskButton
+.deletarTarefa
 {
-    background-color: rgb(71, 71, 226);
+    background-color: rgb(0, 0, 255);
     color: white;
     margin-left: 20px;
     width: auto;
 }
 
-.priority
+.prioridade
 {
     display: flex;
     width: 100%;
@@ -257,7 +254,7 @@ body
     margin: 10px 4px 10px 4px;
 }
 
-.view-popup
+.popup-visualizar
 {
     display: none;
     position: fixed;
@@ -270,77 +267,74 @@ body
     align-items: center;
 }
 
-.view-popup-line
+.cartao-expirado
 {
-    display: flex;
-    align-items: center;
-    padding: 10px 10px;
-}
-
-.expirado {
-    background-color: #c53939; /* Vermelho claro para indicar expiração */
-    border-color: #ff0000; /* Borda vermelha */
+    background-color: #c53939;
+    border-color: #ff0000;
 }
 
 .cartao-concluido
 {
-    background-color: #45c539; /* Vermelho claro para indicar expiração */
-    border-color: #00ff33; /* Borda vermelha */
+    background-color: #45c539;
+    border-color: #00ff33;
 }
 
-/* Estilo para telas grandes (acima de 1200px) */
-@media (min-width: 1200px) {
-    .colunas {
+/* Responsividade */
+
+@media (min-width: 1200px)
+{
+    .colunas
+    {
         flex-direction: row;
         height: auto;
     }
 
-    .a-fazer, .em-andamento, .concluido {
-        width: 30%; /* 30% para caber 3 colunas lado a lado */
+    .a-fazer, .em-andamento, .concluido
+    {
+        width: 30%;
     }
 }
 
-/* Estilo para tablets (entre 600px e 1200px) */
-@media (max-width: 1200px) and (min-width: 600px) {
-    .colunas {
-        flex-direction: column; /* Coloca colunas uma abaixo da outra */
+@media (max-width: 1200px) and (min-width: 600px)
+{
+    .colunas
+    {
+        flex-direction: column;
         align-items: center;
         height: auto;
     }
 
-    .a-fazer, .em-andamento, .concluido {
-        width: 80%; /* Ocupam 80% da largura */
+    .a-fazer, .em-andamento, .concluido
+    {
+        width: 80%;
         margin-bottom: 6rem;
     }
 }
 
-/* Estilo para celulares (menos de 600px) */
-@media (max-width: 600px) {
-    header {
+@media (max-width: 600px)
+{
+    header
+    {
         flex-direction: column;
         font-size: 1.2rem;
         text-align: center;
     }
 
-    .colunas {
+    .colunas
+    {
         flex-direction: column;
         padding: 0 10px;
         height: auto;
     }
 
-    .a-fazer, .em-andamento, .concluido {
-        width: 100%; /* Ocupam toda a largura */
-        margin-bottom: 15px;
+    .a-fazer, .em-andamento, .concluido
+    {
+        width: 100%;
+        margin-bottom: 6rem;
     }
 
-    .quadrado {
-        position: relative;
-        left: 0;
-        bottom: 0;
-        margin: 10px auto;
-    }
-
-    .popup-content, .view-popup-content {
-        width: 90%; /* Ajusta largura dos popups em telas menores */
+    .conteudo-popup
+    {
+        width: 90%;
     }
 }

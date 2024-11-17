@@ -23,7 +23,7 @@
                     <div class="cartoes-a-fazer">
                         <h3 class="titulo">A fazer</h3>
                         <div class="lista-cartoes">
-                            <div class="quadrado">
+                            <div class="quadrado-adicionar">
                                 <img src="plus-solid.svg" alt="">
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                     <div class="cartoes-em-andamento">
                         <h3 class="titulo">Em Andamento</h3>
                         <div class="lista-cartoes">
-                            <div class="quadrado">
+                            <div class="quadrado-adicionar">
                                 <img src="plus-solid.svg" alt="">
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                     <div class="cartoes-concluido">
                         <h3 class="titulo">Concluido</h3>
                         <div class="lista-cartoes">
-                            <div class="quadrado">
+                            <div class="quadrado-adicionar">
                                 <img src="plus-solid.svg" alt="">
                             </div>
                         </div>
@@ -60,86 +60,61 @@
             </div>
         </div>
     </main>
-    <div class="popup">
-        <div class="popup-content">
+
+    <div class="popup-adicionar">
+        <div class="popup-conteudo">
             <h3>Adicionar Tarefa</h3>
-            <label for="title">Título</label>
-            <input type="text" class="title" placeholder="Título">
+            <label for="titulo">Título</label>
+            <input type="text" class="titulo" placeholder="Título">
 
-            <label for="description">Descrição</label>
-            <input type="text" class="description" placeholder="Descrição">
+            <label for="descricao">Descrição</label>
+            <input type="text" class="descricao" placeholder="Descrição">
 
-            <label for="deadline">Data de Vencimento</label>
-            <input type="date" class="deadline">
+            <label for="prazo">Data de Vencimento</label>
+            <input type="date" class="prazo">
 
-            <label for="responsible">Responsáveis</label>
-            <input type="text" class="responsible" placeholder="Responsáveis">
+            <label for="responsavel">Responsáveis</label>
+            <input type="text" class="responsavel" placeholder="Responsável">
 
-            <label for="priority">Prioridade</label>
-            <select class="priority" placeholder="Prioridade">
+            <label for="prioridade">Prioridade</label>
+            <select class="prioridade" placeholder="Prioridade">
                 <option value="ALTA">ALTA</option>
                 <option value="MEDIA">MEDIA</option>
                 <option value="BAIXA">BAIXA</option>
             </select>
 
-            <button class="addTaskButton">Adicionar</button>
-            <button class="closeButton">Fechar</button>
+            <button class="adicionarTarefa">Adicionar</button>
+            <button class="fecharPopup">Fechar</button>
         </div>
     </div>
 
-    <div class="view-popup">
-        <div class="popup-content">
+    <div class="popup-visualizar">
+        <div class="popup-conteudo">
             <h3>Visualizando Tarefa</h3>
-            <label for="title">Título</label>
-            <div class="view-popup-line">
-                <input type="text" class="title" placeholder="Título">
-            </div>
+            <label for="titulo">Título</label>
+            <input type="text" class="titulo" placeholder="Título">
 
-            <label for="description">Descrição</label>
-            <div class="view-popup-line">
-                <input type="text" class="description" placeholder="Descrição">
-            </div>
+            <label for="descricao">Descrição</label>
+            <input type="text" class="descricao" placeholder="Descrição">
 
-            <label for="deadline">Data de Vencimento</label>
-            <div class="view-popup-line">
-                <input type="date" class="deadline">
-            </div>
+            <label for="prazo">Data de Vencimento</label>
+            <input type="date" class="prazo">
 
-            <label for="responsible">Responsáveis</label>
-            <div class="view-popup-line">
-                <input type="text" class="responsible" placeholder="Responsáveis">
-            </div>
+            <label for="responsavel">Responsável</label>
+            <input type="text" class="responsavel" placeholder="Responsável">
 
-            <label for="priority">Prioridade</label>
-            <div class="view-popup-line">
-                <select class="priority" placeholder="Prioridade">
-                    <option value="ALTA">ALTA</option>
-                    <option value="MEDIA">MEDIA</option>
-                    <option value="BAIXA">BAIXA</option>
-                </select>
-            </div>
+            <label for="prioridade">Prioridade</label>
+            <select class="prioridade" placeholder="Prioridade">
+                <option value="ALTA">ALTA</option>
+                <option value="MEDIA">MEDIA</option>
+                <option value="BAIXA">BAIXA</option>
+            </select>
 
-            <button class="editTaskButton">Editar</button>
-            <button class="closeEditButton">Fechar</button>
-            <button class="deleteTaskButton">Deletar</button>
+            <button class="editarTarefa">Editar</button>
+            <button class="fecharVisualizarPopup">Fechar</button>
+            <button class="deletarTarefa">Deletar</button>
         </div>
     </div>
 </body>
 
 </html>
-
-<!-- <div class="cartao" draggable="true">
-    <div class="cartao-conteudo">
-        <p class="nome">Tela de Login para o projeto de Engenharia de Software</h3>
-        <p class="descricao">Tela de login usando Node.js</h3>
-        <div class="data-responsavel">
-            <p class="data">até: 08/11/2024</h3>
-            <div class="prioridade-conteudo">
-                <p class="prioridade">ALTA</p>
-
-            </div>
-            <p class="responsavel">Kevin</h3>
-        </div>
-    </div>
-</div>
--->

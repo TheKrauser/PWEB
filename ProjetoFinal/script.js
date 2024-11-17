@@ -1,20 +1,19 @@
 document.addEventListener('DOMContentLoaded', () =>
 {
-
     const colunas = document.querySelectorAll(".a-fazer, .em-andamento, .concluido");
     const cartoes = document.querySelectorAll(".cartao");
-    const addCardButtons = document.querySelectorAll('.quadrado');
-    const popup = document.querySelector('.popup');
-    const viewPopup = document.querySelector('.view-popup');
-    const closeButton = document.querySelector('.closeButton');
-    const addTaskButton = document.querySelector('.addTaskButton');
-    const editTaskButton = document.querySelector(".editTaskButton");
-    const closeEditButton = document.querySelector(".closeEditButton");
-    const deleteTaskButton = document.querySelector(".deleteTaskButton");
+    const addCardButtons = document.querySelectorAll('.quadrado-adicionar');
+    const popup = document.querySelector('.popup-adicionar');
+    const viewPopup = document.querySelector('.popup-visualizar');
+    const closeButton = document.querySelector('.fecharPopup');
+    const addTaskButton = document.querySelector('.adicionarTarefa');
+    const editTaskButton = document.querySelector(".editarTarefa");
+    const closeEditButton = document.querySelector(".fecharVisualizarPopup");
+    const deleteTaskButton = document.querySelector(".deletarTarefa");
 
     loadCardsFromLocalStorage();
     verificarCartoesExpirados();
-    setInterval(verificarCartoesExpirados, 60000); // Verifica a cada 60 segundos
+    setInterval(verificarCartoesExpirados, 30000);
 
     cartoes.forEach(cartao =>
     {
@@ -24,11 +23,11 @@ document.addEventListener('DOMContentLoaded', () =>
         {
             viewPopup.style.display = 'flex';
 
-            let title = viewPopup.querySelector(".title");
-            let description = viewPopup.querySelector(".description");
-            let deadline = viewPopup.querySelector(".deadline");
-            let responsible = viewPopup.querySelector(".responsible");
-            let priority = viewPopup.querySelector(".priority");
+            let title = viewPopup.querySelector(".titulo");
+            let description = viewPopup.querySelector(".descricao");
+            let deadline = viewPopup.querySelector(".prazo");
+            let responsible = viewPopup.querySelector(".resposavel");
+            let priority = viewPopup.querySelector(".prioridade");
 
             title.value = cartao.querySelector(".nome").textContent;
             description.value = cartao.querySelector(".descricao").textContent;
@@ -65,11 +64,11 @@ document.addEventListener('DOMContentLoaded', () =>
 
     function addTask()
     {
-        const title = document.querySelector('.title').value;
-        const description = document.querySelector('.description').value;
-        const deadline = document.querySelector('.deadline').value;
-        const responsible = document.querySelector('.responsible').value;
-        const priority = document.querySelector(".priority").value;
+        const title = document.querySelector('.popup-adicionar .titulo').value;
+        const description = document.querySelector('.popup-adicionar .descricao').value;
+        const deadline = document.querySelector('.popup-adicionar .prazo').value;
+        const responsible = document.querySelector('.popup-adicionar .responsavel').value;
+        const priority = document.querySelector(".popup-adicionar .prioridade").value;
 
         if (title && description && deadline && responsible && priority)
         {
@@ -92,11 +91,10 @@ document.addEventListener('DOMContentLoaded', () =>
             `;
 
             defineOutlineColor(newCard);
-
             selectedColumn.appendChild(newCard);
-            addEvents(newCard); // Add drag events to the new card
+            addEvents(newCard);
             popup.style.display = 'none';
-            clearForm();
+            clearAddForm();
             verificarCartoesExpirados();
         } else
         {
@@ -119,10 +117,10 @@ document.addEventListener('DOMContentLoaded', () =>
                 // Verifica se a data de validade já passou
                 if (dataValidade < hoje)
                 {
-                    cartao.classList.add('expirado');
+                    cartao.classList.add('cartao-expirado');
                 } else
                 {
-                    cartao.classList.remove('expirado'); // Remove caso seja atualizado
+                    cartao.classList.remove('cartao-expirado'); // Remove caso seja atualizado
                 }
             }
         });
@@ -131,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () =>
     function close()
     {
         popup.style.display = 'none';
-        clearForm();
+        clearAddForm();
     }
 
     function closeEdit()
@@ -193,13 +191,13 @@ document.addEventListener('DOMContentLoaded', () =>
         saveCardsToLocalStorage();
     }
 
-    function clearForm()
+    function clearAddForm()
     {
-        document.querySelector('.title').value = '';
-        document.querySelector('.description').value = '';
-        document.querySelector('.deadline').value = '';
-        document.querySelector('.responsible').value = '';
-        document.querySelector('.priority').value = '';
+        document.querySelector('.popup-adicionar .titulo').value = '';
+        document.querySelector('.popup-adicionar .descricao').value = '';
+        document.querySelector('.popup-adicionar .prazo').value = '';
+        document.querySelector('.popup-adicionar .responsavel').value = '';
+        document.querySelector('.popup-adicionar .prioridade').value = '';
     }
 
     let selectedCard = null;
@@ -213,11 +211,11 @@ document.addEventListener('DOMContentLoaded', () =>
             viewPopup.style.display = 'flex';
             selectedCard = card;
 
-            let title = viewPopup.querySelector(".title");
-            let description = viewPopup.querySelector(".description");
-            let deadline = viewPopup.querySelector(".deadline");
-            let responsible = viewPopup.querySelector(".responsible");
-            let priority = viewPopup.querySelector(".priority");
+            let title = viewPopup.querySelector(".titulo");
+            let description = viewPopup.querySelector(".descricao");
+            let deadline = viewPopup.querySelector(".prazo");
+            let responsible = viewPopup.querySelector(".responsavel");
+            let priority = viewPopup.querySelector(".prioridade");
 
             const date = card.querySelector(".data").textContent;
             let newDate = new Date(date);
@@ -239,25 +237,28 @@ document.addEventListener('DOMContentLoaded', () =>
         {
             case "ALTA":
                 prioridade.style.outline = "rgb(255,0,0) solid 3px";
+                prioridade.style.backgroundColor = "rgb(220,40,0, 1)";
                 break;
 
             case "MEDIA":
-                prioridade.style.outline = "rgb(255, 166, 0) solid 3px";
+                prioridade.style.outline = "rgb(200, 100, 0) solid 3px";
+                prioridade.style.backgroundColor = "rgb(255,166,0, 1)";
                 break;
 
             case "BAIXA":
-                prioridade.style.outline = "rgb(30, 255, 0) solid 3px";
+                prioridade.style.outline = "rgb(0, 100, 14) solid 3px";
+                prioridade.style.backgroundColor = "rgb(30,255,0, 1)";
                 break;
         }
     }
 
     function editTask()
     {
-        let title = viewPopup.querySelector(".title").value;
-        let description = viewPopup.querySelector(".description").value;
-        let deadline = viewPopup.querySelector(".deadline").value;
-        let responsible = viewPopup.querySelector(".responsible").value;
-        let priority = viewPopup.querySelector(".priority").value;
+        let title = viewPopup.querySelector(".titulo").value;
+        let description = viewPopup.querySelector(".descricao").value;
+        let deadline = viewPopup.querySelector(".prazo").value;
+        let responsible = viewPopup.querySelector(".responsavel").value;
+        let priority = viewPopup.querySelector(".prioridade").value;
 
         if (title && description && deadline && responsible && priority)
         {
