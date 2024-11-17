@@ -16,37 +16,130 @@
         <h1>Projeto PWEB</h1>
     </header>
 
-    <main class="background">
-        <div class="columns">
+    <main class="fundo">
+        <div class="colunas">
             <div class="a-fazer">
                 <div class="titulo-a-fazer">
                     <div class="cartoes-a-fazer">
-                        <h3>A fazer</h3>
+                        <h3 class="titulo">A fazer</h3>
+                        <div class="lista-cartoes">
+                            <div class="quadrado">
+                                <img src="plus-solid.svg" alt="">
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="square">
-                    <img src="plus-solid.svg" alt="">
                 </div>
             </div>
 
             <div class="em-andamento">
                 <div class="titulo-em-andamento">
                     <div class="cartoes-em-andamento">
-                        <h3>Em Andamento</h3>
+                        <h3 class="titulo">Em Andamento</h3>
+                        <div class="lista-cartoes">
+                            <div class="quadrado">
+                                <img src="plus-solid.svg" alt="">
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
 
             <div class="concluido">
                 <div class="titulo-concluido">
                     <div class="cartoes-concluido">
-                        <h3>Concluido</h3>
+                        <h3 class="titulo">Concluido</h3>
+                        <div class="lista-cartoes">
+                            <div class="quadrado">
+                                <img src="plus-solid.svg" alt="">
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </main>
+    <div class="popup">
+        <div class="popup-content">
+            <h3>Adicionar Tarefa</h3>
+            <label for="title">Título</label>
+            <input type="text" class="title" placeholder="Título">
+
+            <label for="description">Descrição</label>
+            <input type="text" class="description" placeholder="Descrição">
+
+            <label for="deadline">Data de Vencimento</label>
+            <input type="date" class="deadline">
+
+            <label for="responsible">Responsáveis</label>
+            <input type="text" class="responsible" placeholder="Responsáveis">
+
+            <label for="priority">Prioridade</label>
+            <select class="priority" placeholder="Prioridade">
+                <option value="ALTA">ALTA</option>
+                <option value="MEDIA">MEDIA</option>
+                <option value="BAIXA">BAIXA</option>
+            </select>
+
+            <button class="addTaskButton">Adicionar</button>
+            <button class="closeButton">Fechar</button>
+        </div>
+    </div>
+
+    <div class="view-popup">
+        <div class="popup-content">
+            <h3>Visualizando Tarefa</h3>
+            <label for="title">Título</label>
+            <div class="view-popup-line">
+                <input type="text" class="title" placeholder="Título">
+            </div>
+
+            <label for="description">Descrição</label>
+            <div class="view-popup-line">
+                <input type="text" class="description" placeholder="Descrição">
+            </div>
+
+            <label for="deadline">Data de Vencimento</label>
+            <div class="view-popup-line">
+                <input type="date" class="deadline">
+            </div>
+
+            <label for="responsible">Responsáveis</label>
+            <div class="view-popup-line">
+                <input type="text" class="responsible" placeholder="Responsáveis">
+            </div>
+
+            <label for="priority">Prioridade</label>
+            <div class="view-popup-line">
+                <select class="priority" placeholder="Prioridade">
+                    <option value="ALTA">ALTA</option>
+                    <option value="MEDIA">MEDIA</option>
+                    <option value="BAIXA">BAIXA</option>
+                </select>
+            </div>
+
+            <button class="editTaskButton">Editar</button>
+            <button class="closeEditButton">Fechar</button>
+            <button class="deleteTaskButton">Deletar</button>
+        </div>
+    </div>
 </body>
 
 </html>
+
+<!-- <div class="cartao" draggable="true">
+    <div class="cartao-conteudo">
+        <p class="nome">Tela de Login para o projeto de Engenharia de Software</h3>
+        <p class="descricao">Tela de login usando Node.js</h3>
+        <div class="data-responsavel">
+            <p class="data">até: 08/11/2024</h3>
+            <div class="prioridade-conteudo">
+                <p class="prioridade">ALTA</p>
+
+            </div>
+            <p class="responsavel">Kevin</h3>
+        </div>
+    </div>
+</div>
+-->
