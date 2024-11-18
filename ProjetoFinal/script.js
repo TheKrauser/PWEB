@@ -2,17 +2,21 @@ document.addEventListener('DOMContentLoaded', () =>
 {
     const colunas = document.querySelectorAll(".a-fazer, .em-andamento, .concluido");
     const cartoes = document.querySelectorAll(".cartao");
-    const addCardButtons = document.querySelectorAll('.quadrado-adicionar');
-    const popup = document.querySelector('.popup-adicionar');
-    const viewPopup = document.querySelector('.popup-visualizar');
-    const closeButton = document.querySelector('.fecharPopup');
-    const addTaskButton = document.querySelector('.adicionarTarefa');
-    const editTaskButton = document.querySelector(".editarTarefa");
-    const closeEditButton = document.querySelector(".fecharVisualizarPopup");
-    const deleteTaskButton = document.querySelector(".deletarTarefa");
 
-    loadCardsFromLocalStorage();
+    const botoesAdicionarCartao = document.querySelectorAll('.quadrado-adicionar');
+    const popupAdicionar = document.querySelector('.popup-adicionar');
+    const popupVisualizar = document.querySelector('.popup-visualizar');
+
+    const botaoAdicionarTarefa = document.querySelector('.adicionarTarefa');
+    const botaoFecharAdicionar = document.querySelector('.fecharPopup');
+
+    const botaoEditarTarefa = document.querySelector(".editarTarefa");
+    const botaoFecharVisualizar = document.querySelector(".fecharVisualizarPopup");
+    const botaoDeletarTarefa = document.querySelector(".deletarTarefa");
+
+    carregarDoLocalStorage();
     verificarCartoesExpirados();
+    
     setInterval(verificarCartoesExpirados, 30000);
 
     cartoes.forEach(cartao =>
@@ -21,19 +25,19 @@ document.addEventListener('DOMContentLoaded', () =>
         cartao.addEventListener('dragend', dragEnd);
         cartao.addEventListener('click', () =>
         {
-            viewPopup.style.display = 'flex';
+            popupVisualizar.style.display = 'flex';
 
-            let title = viewPopup.querySelector(".titulo");
-            let description = viewPopup.querySelector(".descricao");
-            let deadline = viewPopup.querySelector(".prazo");
-            let responsible = viewPopup.querySelector(".resposavel");
-            let priority = viewPopup.querySelector(".prioridade");
+            let titulo = popupVisualizar.querySelector(".titulo");
+            let descricao = popupVisualizar.querySelector(".descricao");
+            let prazo = popupVisualizar.querySelector(".prazo");
+            let responsavel = popupVisualizar.querySelector(".resposavel");
+            let prioridade = popupVisualizar.querySelector(".prioridade");
 
-            title.value = cartao.querySelector(".nome").textContent;
-            description.value = cartao.querySelector(".descricao").textContent;
-            deadline.value = cartao.querySelector(".data").textContent;
-            responsible.value = cartao.querySelector(".responsavel").textContent;
-            priority.value = cartao.querySelector(".prioridade").textContent;
+            titulo.value = cartao.querySelector(".nome").textContent;
+            descricao.value = cartao.querySelector(".descricao").textContent;
+            prazo.value = cartao.querySelector(".data").textContent;
+            responsavel.value = cartao.querySelector(".responsavel").textContent;
+            prioridade.value = cartao.querySelector(".prioridade").textContent;
         });
     });
 
@@ -45,58 +49,62 @@ document.addEventListener('DOMContentLoaded', () =>
         coluna.addEventListener('drop', drop);
     });
 
-    addTaskButton.addEventListener("click", addTask);
-    editTaskButton.addEventListener("click", editTask);
-    closeButton.addEventListener("click", close);
-    closeEditButton.addEventListener("click", closeEdit);
-    deleteTaskButton.addEventListener("click", deleteTask);
+    botaoAdicionarTarefa.addEventListener("click", adicionarTarefa);
+    botaoFecharAdicionar.addEventListener("click", fecharPopupAdicionar);
 
-    let selectedColumn = null;
+    botaoEditarTarefa.addEventListener("click", editarTarefa);
+    botaoFecharVisualizar.addEventListener("click", fecharPopupVisualizar);
+    botaoDeletarTarefa.addEventListener("click", deletarTarefa);
 
-    addCardButtons.forEach(botao =>
+    let colunaSelecionada = null;
+    let cartaoSelecionado = null;
+    let cartaoArrastado = null;
+
+    botoesAdicionarCartao.forEach(botao =>
     {
         botao.addEventListener('click', () =>
         {
-            popup.style.display = 'flex';
-            selectedColumn = botao.parentElement;
+            popupAdicionar.style.display = 'flex';
+            colunaSelecionada = botao.parentElement;
         });
     });
 
-    function addTask()
+    function adicionarTarefa()
     {
-        const title = document.querySelector('.popup-adicionar .titulo').value;
-        const description = document.querySelector('.popup-adicionar .descricao').value;
-        const deadline = document.querySelector('.popup-adicionar .prazo').value;
-        const responsible = document.querySelector('.popup-adicionar .responsavel').value;
-        const priority = document.querySelector(".popup-adicionar .prioridade").value;
+        const titulo = document.querySelector('.popup-adicionar .titulo').value;
+        const descricao = document.querySelector('.popup-adicionar .descricao').value;
+        const prazo = document.querySelector('.popup-adicionar .prazo').value;
+        const responsavel = document.querySelector('.popup-adicionar .responsavel').value;
+        const prioridade = document.querySelector(".popup-adicionar .prioridade").value;
 
-        if (title && description && deadline && responsible && priority)
+        if (titulo && descricao && prazo && responsavel && prioridade)
         {
-            const newCard = document.createElement('div');
-            newCard.classList.add('cartao');
-            newCard.draggable = true;
-            newCard.innerHTML = `
+            const novoCartao = document.createElement('div');
+            novoCartao.classList.add('cartao');
+            novoCartao.draggable = true;
+            novoCartao.innerHTML = `
             <div class="cartao-conteudo">
-                <p class="nome">${ title }</p>
-                <p class="descricao">${ description }</p>
+                <p class="nome">${ titulo }</p>
+                <p class="descricao">${ descricao }</p>
                 <div class="data-responsavel">
-                    <p class="data">${ deadline }</p>
+                    <p class="data">${ prazo }</p>
                     <div class="prioridade-conteudo">
-                        <p class="prioridade">${ priority }</p>
+                        <p class="prioridade">${ prioridade }</p>
 
                     </div>
-                        <p class="responsavel">${ responsible }</p>
+                        <p class="responsavel">${ responsavel }</p>
                     </div>
                 </div>
             `;
 
-            defineOutlineColor(newCard);
-            selectedColumn.appendChild(newCard);
-            addEvents(newCard);
-            popup.style.display = 'none';
-            clearAddForm();
+            atualizarCorPrioridade(novoCartao);
+            colunaSelecionada.appendChild(novoCartao);
+            adicionarEventos(novoCartao);
+            popupAdicionar.style.display = 'none';
+            limparFormulario();
             verificarCartoesExpirados();
-        } else
+        }
+        else
         {
             alert('Por favor, preencha todos os campos!');
         }
@@ -109,45 +117,41 @@ document.addEventListener('DOMContentLoaded', () =>
 
         cartoes.forEach(cartao =>
         {
-            const dataDeadline = cartao.querySelector('.data').textContent;
-            if (dataDeadline)
+            const dataPrazo = cartao.querySelector('.data').textContent;
+            if (dataPrazo)
             {
-                const dataValidade = new Date(dataDeadline);
+                const dataValidade = new Date(dataPrazo);
 
-                // Verifica se a data de validade já passou
                 if (dataValidade < hoje)
                 {
                     cartao.classList.add('cartao-expirado');
                 } else
                 {
-                    cartao.classList.remove('cartao-expirado'); // Remove caso seja atualizado
+                    cartao.classList.remove('cartao-expirado');
                 }
             }
         });
     }
 
-    function close()
+    function fecharPopupAdicionar()
     {
-        popup.style.display = 'none';
-        clearAddForm();
+        popupAdicionar.style.display = 'none';
+        limparFormulario();
     }
 
-    function closeEdit()
+    function fecharPopupVisualizar()
     {
-        viewPopup.style.display = "none";
+        popupVisualizar.style.display = "none";
     }
-
-    let draggedCard = null;
 
     function dragStart()
     {
-        draggedCard = this;
-        //this.style.backgroundColor = "#ffffff";
+        cartaoArrastado = this;
     }
 
     function dragEnd()
     {
-        draggedCard = null;
+        cartaoArrastado = null;
     }
 
     function dragOver(e)
@@ -170,28 +174,28 @@ document.addEventListener('DOMContentLoaded', () =>
     {
         this.style.backgroundColor = '';
 
-        const t = this.querySelector(".lista-cartoes");
+        const listaCartoes = this.querySelector(".lista-cartoes");
 
-        if (draggedCard)
+        if (cartaoArrastado)
         {
-            t.appendChild(draggedCard);
+            listaCartoes.appendChild(cartaoArrastado);
 
             if (this.className === "concluido")
             {
-                draggedCard.classList.add("cartao-concluido");
+                cartaoArrastado.classList.add("cartao-concluido");
             }
             else
             {
-                draggedCard.classList.remove("cartao-concluido");
+                cartaoArrastado.classList.remove("cartao-concluido");
             }
 
-            draggedCard = null;
+            cartaoArrastado = null;
         }
 
-        saveCardsToLocalStorage();
+        salvarNoLocalStorage();
     }
 
-    function clearAddForm()
+    function limparFormulario()
     {
         document.querySelector('.popup-adicionar .titulo').value = '';
         document.querySelector('.popup-adicionar .descricao').value = '';
@@ -200,35 +204,33 @@ document.addEventListener('DOMContentLoaded', () =>
         document.querySelector('.popup-adicionar .prioridade').value = '';
     }
 
-    let selectedCard = null;
-
-    function addEvents(card)
+    function adicionarEventos(cartao)
     {
-        card.addEventListener('dragstart', dragStart);
-        card.addEventListener('dragend', dragEnd);
-        card.addEventListener('click', () =>
+        cartao.addEventListener('dragstart', dragStart);
+        cartao.addEventListener('dragend', dragEnd);
+        cartao.addEventListener('click', () =>
         {
-            viewPopup.style.display = 'flex';
-            selectedCard = card;
+            popupVisualizar.style.display = 'flex';
+            cartaoSelecionado = cartao;
 
-            let title = viewPopup.querySelector(".titulo");
-            let description = viewPopup.querySelector(".descricao");
-            let deadline = viewPopup.querySelector(".prazo");
-            let responsible = viewPopup.querySelector(".responsavel");
-            let priority = viewPopup.querySelector(".prioridade");
+            let titulo = popupVisualizar.querySelector(".titulo");
+            let descricao = popupVisualizar.querySelector(".descricao");
+            let prazo = popupVisualizar.querySelector(".prazo");
+            let responsavel = popupVisualizar.querySelector(".responsavel");
+            let prioridade = popupVisualizar.querySelector(".prioridade");
 
-            const date = card.querySelector(".data").textContent;
-            let newDate = new Date(date);
+            const data = cartao.querySelector(".data").textContent;
+            let dataFormatada = new Date(data);
 
-            title.value = card.querySelector(".nome").textContent;
-            description.value = card.querySelector(".descricao").textContent;
-            deadline.valueAsDate = newDate;
-            responsible.value = card.querySelector(".responsavel").textContent;
-            priority.value = card.querySelector(".prioridade").textContent;
+            titulo.value = cartao.querySelector(".nome").textContent;
+            descricao.value = cartao.querySelector(".descricao").textContent;
+            prazo.valueAsDate = dataFormatada;
+            responsavel.value = cartao.querySelector(".responsavel").textContent;
+            prioridade.value = cartao.querySelector(".prioridade").textContent;
         });
     }
 
-    function defineOutlineColor(card)
+    function atualizarCorPrioridade(card)
     {
         let prioridade = card.querySelector(".prioridade-conteudo");
         let valor = card.querySelector(".prioridade").textContent;
@@ -252,25 +254,25 @@ document.addEventListener('DOMContentLoaded', () =>
         }
     }
 
-    function editTask()
+    function editarTarefa()
     {
-        let title = viewPopup.querySelector(".titulo").value;
-        let description = viewPopup.querySelector(".descricao").value;
-        let deadline = viewPopup.querySelector(".prazo").value;
-        let responsible = viewPopup.querySelector(".responsavel").value;
-        let priority = viewPopup.querySelector(".prioridade").value;
+        let titulo = popupVisualizar.querySelector(".titulo").value;
+        let descricao = popupVisualizar.querySelector(".descricao").value;
+        let prazo = popupVisualizar.querySelector(".prazo").value;
+        let responsavel = popupVisualizar.querySelector(".responsavel").value;
+        let prioridade = popupVisualizar.querySelector(".prioridade").value;
 
-        if (title && description && deadline && responsible && priority)
+        if (titulo && descricao && prazo && responsavel && prioridade)
         {
-            selectedCard.querySelector(".nome").textContent = title;
-            selectedCard.querySelector(".descricao").textContent = description;
-            selectedCard.querySelector(".data").textContent = deadline;
-            selectedCard.querySelector(".responsavel").textContent = responsible;
-            selectedCard.querySelector(".prioridade").textContent = priority;
+            cartaoSelecionado.querySelector(".nome").textContent = titulo;
+            cartaoSelecionado.querySelector(".descricao").textContent = descricao;
+            cartaoSelecionado.querySelector(".data").textContent = prazo;
+            cartaoSelecionado.querySelector(".responsavel").textContent = responsavel;
+            cartaoSelecionado.querySelector(".prioridade").textContent = prioridade;
 
-            defineOutlineColor(selectedCard);
-            selectedCard = null;
-            viewPopup.style.display = 'none';
+            atualizarCorPrioridade(cartaoSelecionado);
+            cartaoSelecionado = null;
+            popupVisualizar.style.display = 'none';
         }
         else
         {
@@ -280,14 +282,14 @@ document.addEventListener('DOMContentLoaded', () =>
         verificarCartoesExpirados();
     }
 
-    function deleteTask()
+    function deletarTarefa()
     {
-        selectedCard.remove();
-        selectedCard = null;
-        closeEdit();
+        cartaoSelecionado.remove();
+        cartaoSelecionado = null;
+        fecharPopupVisualizar();
     }
 
-    function saveCardsToLocalStorage()
+    function salvarNoLocalStorage()
     {
         const cardsData = [];
 
@@ -313,19 +315,19 @@ document.addEventListener('DOMContentLoaded', () =>
         localStorage.setItem('kanbanCards', JSON.stringify(cardsData));
     }
 
-    function loadCardsFromLocalStorage()
+    function carregarDoLocalStorage()
     {
         const savedCards = JSON.parse(localStorage.getItem('kanbanCards')) || [];
 
         savedCards.forEach(cardData =>
         {
-            const column = document.querySelector("." + cardData.columnClass);
-            if (column)
+            const coluna = document.querySelector("." + cardData.columnClass);
+            if (coluna)
             {
-                const card = document.createElement('div');
-                card.classList.add('cartao');
-                card.draggable = true;
-                card.innerHTML = `
+                const cartao = document.createElement('div');
+                cartao.classList.add('cartao');
+                cartao.draggable = true;
+                cartao.innerHTML = `
                     <div class="cartao-conteudo">
                         <p class="nome">${ cardData.title }</p>
                         <p class="descricao">${ cardData.description }</p>
@@ -339,20 +341,21 @@ document.addEventListener('DOMContentLoaded', () =>
                     </div>
                 `;
 
-                column.querySelector('.lista-cartoes').appendChild(card);
-                if (column.className === "concluido")
+                coluna.querySelector('.lista-cartoes').appendChild(cartao);
+                
+                if (coluna.className === "concluido")
                 {
-                    card.classList.add("cartao-concluido");
+                    cartao.classList.add("cartao-concluido");
                 }
 
-                addEvents(card);
-                defineOutlineColor(card);
+                adicionarEventos(cartao);
+                atualizarCorPrioridade(cartao);
             }
         });
     }
 
     window.onbeforeunload = function ()
     {
-        saveCardsToLocalStorage();
+        salvarNoLocalStorage();
     };
 });
