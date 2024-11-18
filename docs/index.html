@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Quadro Kanban</title>
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Quadro Kanban</h1>
+        <h1>Projeto PWEB</h1>
+    </header>
+
+    <main class="fundo">
+        <div class="colunas">
+            <div class="a-fazer">
+                <div class="titulo-a-fazer">
+                    <div class="cartoes-a-fazer">
+                        <h3 class="titulo">A fazer</h3>
+                        <div class="lista-cartoes">
+                            <div class="quadrado-adicionar">
+                                <img src="plus-solid.svg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="em-andamento">
+                <div class="titulo-em-andamento">
+                    <div class="cartoes-em-andamento">
+                        <h3 class="titulo">Em Andamento</h3>
+                        <div class="lista-cartoes">
+                            <div class="quadrado-adicionar">
+                                <img src="plus-solid.svg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="concluido">
+                <div class="titulo-concluido">
+                    <div class="cartoes-concluido">
+                        <h3 class="titulo">Concluido</h3>
+                        <div class="lista-cartoes">
+                            <div class="quadrado-adicionar">
+                                <img src="plus-solid.svg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <div class="popup-adicionar">
+        <div class="popup-conteudo">
+            <h3>Adicionar Tarefa</h3>
+            <label for="titulo">Título</label>
+            <input type="text" class="titulo" placeholder="Título">
+
+            <label for="descricao">Descrição</label>
+            <input type="text" class="descricao" placeholder="Descrição">
+
+            <label for="prazo">Data de Vencimento</label>
+            <input type="date" class="prazo">
+
+            <label for="responsavel">Responsáveis</label>
+            <input type="text" class="responsavel" placeholder="Responsável">
+
+            <label for="prioridade">Prioridade</label>
+            <select class="prioridade" placeholder="Prioridade">
+                <option value="ALTA">ALTA</option>
+                <option value="MEDIA">MEDIA</option>
+                <option value="BAIXA">BAIXA</option>
+            </select>
+
+            <button class="adicionarTarefa">Adicionar</button>
+            <button class="fecharPopup">Fechar</button>
+        </div>
+    </div>
+
+    <div class="popup-visualizar">
+        <div class="popup-conteudo">
+            <h3>Visualizando Tarefa</h3>
+            <label for="titulo">Título</label>
+            <input type="text" class="titulo" placeholder="Título">
+
+            <label for="descricao">Descrição</label>
+            <input type="text" class="descricao" placeholder="Descrição">
+
+            <label for="prazo">Data de Vencimento</label>
+            <input type="date" class="prazo">
+
+            <label for="responsavel">Responsável</label>
+            <input type="text" class="responsavel" placeholder="Responsável">
+
+            <label for="prioridade">Prioridade</label>
+            <select class="prioridade" placeholder="Prioridade">
+                <option value="ALTA">ALTA</option>
+                <option value="MEDIA">MEDIA</option>
+                <option value="BAIXA">BAIXA</option>
+            </select>
+
+            <button class="editarTarefa">Editar</button>
+            <button class="deletarTarefa">Deletar</button>
+            <button class="fecharVisualizarPopup">Fechar</button>
+        </div>
+    </div>
+</body>
+
+</html>
